@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Sgura - Curriculum</title>
+    <style>
+        /* Import a clean, modern font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #222222;
+            --text-muted: #666666;
+            --transition-speed: 0.7s;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* The scroll container sets the height to 15 viewports to allow scrolling through 15 states */
+        .scroll-container {
+            height: 600vh;
+            width: 100%;
+        }
+
+        /* The fixed canvas acts as our screen */
+        .fixed-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* Let clicks pass through to interactive elements */
+        }
+
+        /* Generic transition classes */
+        .morphed-element {
+            position: absolute;
+            transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: auto;
+        }
+
+        .content-block {
+            position: absolute;
+            top: 100px; /* Leave space for top headers */
+            left: 20px;
+            right: 20px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: all var(--transition-speed) ease;
+            box-sizing: border-box;
+        }
+
+        /* Responsive max-widths for desktop/mobile */
+        @media (min-width: 768px) {
+            .content-block {
+                left: 10%;
+                right: 10%;
+                top: 120px;
+            }
+        }
+
+        /* Tooltip styling */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: #eee;
+            color: #333;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 10; /* Increased to ensure it stays above other elements */
+            bottom: 150%; 
+            left: 50%;
+            transform: translateX(-50%); /* Better way to center than negative margins */
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            pointer-events: none; /* Prevents tooltip from interfering with clicks */
+        }
+        
+        /* Mobile specific adjustments */
+        @media (max-width: 600px) {
+            .tooltip-text {
+                width: 200px; /* Narrower for small screens */
+                left: auto;
+                right: -50px; /* Aligns it toward the left since it's on the right of the screen */
+                transform: none;
+                bottom: 130%;
+            }
+        }
+        
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: underline;
+        }
+
+        /* Helpers for content items */
+        .list-item {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            transition: all 0.5s ease;
+        }
+        
+        .sub-list {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-left: 20px;
+            transition: all 0.6s ease;
+            color: var(--text-muted);
+            font-size: 1rem;
+	    font-weight: 400;
+        }
+
+        .sub-list p { margin: 8px 0; }
+        
+        .bold-text { font-weight: 700; color: #000; }
+        .blurred-text { filter: blur(3px); opacity: 0.4; }
+        .italic-text { font-style: italic; }
+
+        /* =========================================
+           STATE DEFINITIONS (Powered by data-state)
+           ========================================= */
+
+        /* --- ID 1: Name --- */
+        body[data-state="1"] #id1 {
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 2.5rem; font-weight: 700; text-align: center; width: 100%;
+        }
+        body:not([data-state="1"]) #id1 {
+            top: 25px; left: calc(100% - 25px); transform: translateX(-100%);
+            font-size: 1.2rem; font-weight: 600; text-align: right; width: auto; max-width: 40%;
+        }
+
+        /* --- State 1 Subtext --- */
+        #state1-sub {
+            top: calc(50% + 50px); left: 50%; transform: translate(-50%, 0);
+            text-align: center; width: 90%; color: var(--text-muted);
+        }
+        body:not([data-state="1"]) #state1-sub { opacity: 0; pointer-events: none; }
+
+        /* --- Main Titles (Morphing via ID) --- */
+        .section-title { opacity: 0; font-size: 1.5rem; font-weight: 700; max-width: 55%; }
+
+        /* ID 2: "What you will find here" */
+        body[data-state="2"] #id2, body[data-state="3"] #id2, body[data-state="4"] #id2, body[data-state="5"] #id2 {
+            top: 25px; left: 25px; opacity: 1; transform: none;
+        }
+
+        /* ID 6: "Professional Experience" */
+        body[data-state="6"] #id6 { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; font-size: 2.5rem; text-align: center; max-width: 100%; }
+        body[data-state="7"] #id6, body[data-state="8"] #id6, body[data-state="9"] #id6, body[data-state="10"] #id6 {
+            top: 25px; left: 25px; opacity: 1; transform: none;
+        }
+
+        /* ID 11: "Education and Languages" */
+        body[data-state="11"] #id11 { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; font-size: 2.5rem; text-align: center; max-width: 100%; }
+        body[data-state="12"] #id11 { top: 25px; left: 25px; opacity: 1; transform: none; }
+
+        /* ID 13: "Additional Information" */
+        body[data-state="13"] #id13 { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; font-size: 2.5rem; text-align: center; max-width: 100%; }
+        body[data-state="14"] #id13, body[data-state="15"] #id13 { top: 25px; left: 25px; opacity: 1; transform: none; }
+
+
+        /* --- Content Blocks Visibility --- */
+        body[data-state="2"] #block-2-5, body[data-state="3"] #block-2-5, body[data-state="4"] #block-2-5, body[data-state="5"] #block-2-5 {
+            opacity: 1; pointer-events: auto; transform: translateY(0);
+        }
+        body[data-state="7"] #block-7-10, body[data-state="8"] #block-7-10, body[data-state="9"] #block-7-10, body[data-state="10"] #block-7-10 {
+            opacity: 1; pointer-events: auto; transform: translateY(0);
+        }
+        body[data-state="12"] #block-12 {
+            opacity: 1; pointer-events: auto; transform: translateY(0);
+        }
+        body[data-state="14"] #block-14-15, body[data-state="15"] #block-14-15 {
+            opacity: 1; pointer-events: auto; transform: translateY(0);
+        }
+
+        /* =========================================
+           INNER CONTENT DYNAMICS
+           ========================================= */
+
+        /* Block 2-5 */
+        body[data-state="3"] #id3 { font-weight: 700; }
+        body[data-state="3"] #id3_sub { max-height: 200px; opacity: 1; margin-top: 10px; }
+        body[data-state="4"] #id3, body[data-state="5"] #id3 { filter: blur(3px); opacity: 0.4; }
+        
+        body[data-state="4"] #id4 { font-weight: 700; }
+        body[data-state="4"] #id4_sub { max-height: 200px; opacity: 1; margin-top: 10px; }
+        body[data-state="3"] #id4, body[data-state="5"] #id4 { filter: blur(3px); opacity: 0.4; }
+
+        body[data-state="5"] #id5 { font-weight: 700; }
+        body[data-state="5"] #id5_sub { max-height: 200px; opacity: 1; margin-top: 10px; }
+        body[data-state="3"] #id5, body[data-state="4"] #id5 { filter: blur(3px); opacity: 0.4; }
+
+        /* Block 7-10 */
+        .hidden-years { display: inline-block; transition: all 0.5s ease; overflow: hidden; white-space: nowrap; }
+        body[data-state="8"] .hidden-years, body[data-state="9"] .hidden-years, body[data-state="10"] .hidden-years { max-width: 0; opacity: 0; }
+
+        body[data-state="8"] #id7, body[data-state="9"] #id7 { font-weight: 700; }
+        body[data-state="10"] #id7, body[data-state="10"] #id9, body[data-state="10"] #id10 { filter: blur(3px); opacity: 0.4; }
+        
+        body[data-state="8"] #id9 { font-weight: 700; }
+        body[data-state="9"] #id9 { filter: blur(3px); opacity: 0.4; }
+        body[data-state="8"] #id9_scope { max-height: 300px; opacity: 1; margin-top: 10px; }
+        
+        body[data-state="9"] #id10 { font-weight: 700; }
+        body[data-state="8"] #id10 { filter: blur(3px); opacity: 0.4; }
+        body[data-state="9"] #id10_scope { max-height: 300px; opacity: 1; margin-top: 10px; }
+
+        body[data-state="10"] #id8 { font-weight: 700; }
+        body[data-state="8"] #id8, body[data-state="9"] #id8 { filter: blur(3px); opacity: 0.4; }
+        body[data-state="10"] #id8_sub { max-height: 500px; opacity: 1; margin-top: 10px; }
+
+        /* Block 14-15 */
+        body[data-state="15"] #id14, body[data-state="15"] #id15, body[data-state="15"] #id16 { filter: blur(3px); opacity: 0.4; }
+        body[data-state="15"] #id17 { font-weight: 700; }
+        body[data-state="15"] #id18, body[data-state="15"] #id19, body[data-state="15"] #id20 { opacity: 0; max-height: 0; margin: 0; }
+        
+        #id17_example { max-height: 0; opacity: 0; overflow: hidden; margin-left: 20px; transition: all 0.6s ease; color: var(--text-main); font-weight: normal; }
+        body[data-state="15"] #id17_example { max-height: 200px; opacity: 1; margin-top: 10px; }
+
+        body[data-state="16"] #id1 { top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.5rem; font-weight: 700; text-align: center; width: 100%; }
+
+        /* Show the subtext links again */
+        body[data-state="16"] #state1-sub { opacity: 1; pointer-events: auto; top: calc(50% + 50px); left: 50%; transform: translate(-50%, 0); text-align: center; width: 90%; color: var(--text-muted); }
+
+        /* Hide the block 14-15 content and the section title */
+        body[data-state="16"] #block-14-15, 
+        body[data-state="16"] #id13 { opacity: 0; pointer-events: none; }
+
+        /* Scroll indicator */
+        .down-arrow {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            font-size: 2rem; animation: bounce 2s; color: #ccc;
+            cursor: pointer; /* Add this */
+            pointer-events: auto; /* Add this */
+            z-index: 100; /* Ensure it stays on top */
+            -webkit-user-select: none;  /* iOS Safari */
+            -ms-user-select: none;      /* Internet Explorer/Edge */
+            user-select: none;          /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    
+            /* Prevent the "tap highlight" color on mobile */
+            -webkit-tap-highlight-color: transparent;
+    
+            /* Improve touch response */
+            touch-action: manipulation;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
+        /*body:not([data-state="1"]) .down-arrow { opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+
+    </style>
+</head>
+<body data-state="1">
+
+    <div class="scroll-container">
+        </div>
+
+    <div class="fixed-canvas">
+        
+        <div id="id1" class="morphed-element">Gabriel Sgura</div>
+        
+        <div id="state1-sub" class="morphed-element">
+            Product Management | <a href="https://linkedin.com/in/gabrielsgura" target="_blank">linkedin.com/in/gabrielsgura</a> | 
+            <div class="tooltip-container">
+                <span class="info-emoji" style="color: gray;">ℹ️</span>
+                <div class="tooltip-text">Phone number and e-mail upon linkedin request, in the interest of privacy</div>
+            </div>
+        </div>
+	<div id="next-state-btn" class="down-arrow">↓</div>
+
+        <div id="id2" class="morphed-element section-title">What you will find here</div>
+        <div id="id6" class="morphed-element section-title">Professional Experience</div>
+        <div id="id11" class="morphed-element section-title">Education and Languages</div>
+        <div id="id13" class="morphed-element section-title">Additional Information</div>
+
+
+        <div id="block-2-5" class="content-block">
+            <div id="id3" class="list-item">1. Product Management experience
+                <div id="id3_sub" class="sub-list">
+                    <p>1.a. Building and scaling new products;</p>
+                    <p>1.b. Tweaking well established ones;</p>
+                    <p>1.c. Typically entering contexts with little structure and leaving after achieving stability.</p>
+                </div>
+            </div>
+            <div id="id4" class="list-item">2. Knowledge of regulated financial products
+                <div id="id4_sub" class="sub-list">
+                    <p>2.a. Revolving and instalment credit;</p>
+                    <p>2.b. Payments, and receivable financing;</p>
+                    <p>2.c. Brazilian financial market infrastructures.</p>
+                </div>
+            </div>
+            <div id="id5" class="list-item">3. A generalist profile
+                <div id="id5_sub" class="sub-list">
+                    <p>3.a. Team building and people development;</p>
+                    <p>3.b. Business sense + Technical awareness;</p>
+                    <p>3.c. The ability to dive deep when necessary.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="block-7-10" class="content-block">
+            <div id="id7" class="list-item">1. [2020-2026] Group Product Manager - Stone
+                <div class="sub-list" style="max-height: none; opacity: 1; margin-top: 10px; overflow: visible;">
+                    
+                    <div id="id9" class="list-item" style="color: var(--text-main);">1.a. Credit Analysis and Offers platforms
+                        <div id="id9_scope" class="sub-list">
+                            <p><strong>Scope:</strong> Management of the Credit Analysis and Offers tribe. Responsible for scaling the platform and helping grow the credit portfolio.</p>
+                            <p><strong>Main results:</strong> Growth of the credit portfolio from 300 million to over 2 billion reais through increase in credit limit available.</p>
+                        </div>
+                    </div>
+
+                    <div id="id10" class="list-item" style="color: var(--text-main);">1.b. Acquirer payments and customer receivables financing
+                        <div id="id10_scope" class="sub-list">
+                            <p><strong>Scope:</strong> Management of the receivables processing, financing and payments platform. Responsible for maintaining a high level of service and enabling new financial products.</p>
+                            <p><strong>Main results:</strong><br>
+                            Launch of same day payment product, today one of the main ways customers chose to receive their sales;<br>
+                            Successful integration to the brazilian credit card receivables trade repository.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div id="id8" class="list-item">2. [2017-2020] Product Manager - Stone 
+                <div id="id8_sub" class="sub-list">
+                    <p><strong>2.a. Credit:</strong><br>
+                    Decrease of operational repayment loss (~20%) through implementation of custom repayment engine with the use of credit card receivables;<br>
+                    Shift from partnership-based funding to self-funding.</p>
+                    <p><strong>2.b. Acquirer:</strong><br>
+                    Construction of a bank lock platform from scratch.</p>
+                    <p><strong>2.c. Customer Servicing Interface</strong><br>
+                    Closure of the development team, by stabilization of the platform.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="block-12" class="content-block">
+            <div class="list-item">
+                <span class="italic-text">01/2012 – 08/2018</span> - <strong>UNIVERSIDADE FEDERAL FLUMINENSE</strong> – Niterói, Brazil<br>
+                Environmental Engineering
+            </div>
+            <div class="list-item">
+                <span class="italic-text">07/2015 – 06/2016</span> - <strong>UNIVERSITY COLLEGE CORK</strong> – Cork, Ireland<br>
+                Civil and Environmental Engineering
+            </div>
+            <div class="list-item">
+                Fluent English<br>
+                Middle School at ACS Egham | International School in London
+            </div>
+	    <div class="list-item">
+                Native Brazilian Portuguese<br>
+            </div>
+        </div>
+
+
+        <div id="block-14-15" class="content-block">
+            <div id="id14" class="list-item">1. Product certifications
+                <div class="sub-list" style="max-height: none; opacity: 1; margin-top: 10px; overflow: visible;">
+                    <p id="id15" style="color: var(--text-main); transition: all 0.5s;">1.a. Reforge Product Foundations</p>
+                    <p id="id16" style="color: var(--text-main); transition: all 0.5s;">1.b. Reforge Product Leadership</p>
+                </div>
+            </div>
+            <div id="id17" class="list-item">2. Applied technical skills
+                <div class="sub-list" style="max-height: none; opacity: 1; margin-top: 10px; overflow: visible;">
+                    <p id="id18" style="color: var(--text-main); transition: all 0.5s;">2.a. SQL - daily usage for data analysis</p>
+                    <p id="id19" style="color: var(--text-main); transition: all 0.5s;">2.b. Python - scripts for automations</p>
+                    <p id="id20" style="color: var(--text-main); transition: all 0.5s;">2.c. AI tools - for quick prototyping and automations</p>
+                </div>
+                <div id="id17_example">
+                    Example: Brought a saving of more than R$2 million over a year, with a cost of R$4.000 by using AI and python to optimize visits for the commercial team.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Calculate which state we are in based on scroll position
+        const TOTAL_STATES = 16;
+        const STEP_HEIGHT = 400;
+        let isScrolling = false;
+        
+        const scrollContainer = document.querySelector('.scroll-container');
+        scrollContainer.style.height = (TOTAL_STATES * STEP_HEIGHT) + window.innerHeight + "px";
+        
+        const nextBtn = document.getElementById('next-state-btn');
+        
+        // --- NEW SCROLL LOCK LOGIC ---
+        
+        function goToState(targetState) {
+            if (targetState < 1 || targetState > TOTAL_STATES || isScrolling) return;
+        
+            isScrolling = true;
+            const targetScroll = (targetState - 1) * STEP_HEIGHT;
+        
+            window.scrollTo({
+                top: targetScroll,
+                behavior: 'smooth'
+            });
+        
+            // Re-enable scrolling after the smooth scroll finishes
+            setTimeout(() => {
+                isScrolling = false;
+            }, 600); // Matches your CSS transition speed roughly
+        }
+        
+        // Intercept Wheel (Desktop) and Touch (Mobile)
+        window.addEventListener('wheel', (e) => {
+            e.preventDefault(); // Stop native scroll
+            if (isScrolling) return;
+        
+            const direction = e.deltaY > 0 ? 1 : -1;
+            const currentState = Math.floor(window.scrollY / STEP_HEIGHT) + 1;
+            goToState(currentState + direction);
+        }, { passive: false });
+        
+        // Handle Mobile Touch
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        window.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent accidental multi-state glides
+            if (isScrolling) return;
+        
+            const touchEndY = e.touches[0].clientY;
+            const diff = touchStartY - touchEndY;
+        
+            if (Math.abs(diff) > 50) { // Threshold to trigger move
+                const direction = diff > 0 ? 1 : -1;
+                const currentState = Math.floor(window.scrollY / STEP_HEIGHT) + 1;
+                goToState(currentState + direction);
+            }
+        }, { passive: false });
+        
+        // Keep your existing state attributes update logic
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            let currentState = Math.round(scrollPos / STEP_HEIGHT) + 1;
+        
+            if (currentState < 1) currentState = 1;
+            if (currentState > TOTAL_STATES) currentState = TOTAL_STATES;
+        
+            document.body.setAttribute('data-state', currentState);
+        
+            nextBtn.style.display = (currentState === TOTAL_STATES) ? 'none' : 'block';
+        });
+        
+        // Update button to use the new logic
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const currentState = Math.floor(window.scrollY / STEP_HEIGHT) + 1;
+            goToState(currentState + 1);
+        });
+    </script>
+</body>
+</html>
