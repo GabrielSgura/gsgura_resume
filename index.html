@@ -121,11 +121,12 @@ footer p { margin: 0; color: var(--muted); font-size: 0.85rem; }
   body { padding-block: 32px 48px; }
   .sheet { gap: 56px; }
 
-  /* Summary: 2×2 instead of a tall stack */
-  .summary { grid-template-columns: 1fr 1fr; }
-  .summary div { border-right: 0; border-bottom: 1px solid var(--rule); padding: 12px 14px; }
-  .summary div:nth-child(odd) { border-right: 1px solid var(--rule); }
-  .summary div:nth-last-child(-n+2) { border-bottom: 0; }
+  /* Summary: one row per item, label left and value right */
+  .summary { grid-template-columns: 1fr; }
+  .summary div { flex-direction: row; justify-content: space-between; align-items: baseline; gap: 16px;
+    border-right: 0; border-bottom: 1px solid var(--rule); padding: 12px 14px; }
+  .summary div:last-child { border-bottom: 0; }
+  .summary .value { text-align: right; }
 
   /* Positions: each period becomes its own block with a clear header band */
   .colhead { display: none; }
