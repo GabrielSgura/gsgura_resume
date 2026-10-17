@@ -1,595 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Sgura — Resume</title>
-    <meta name="description" content="Gabriel Sgura — Staff Product Manager at Cora. Lending, payments and credit products in Brazilian fintech.">
-    <meta property="og:type" content="profile">
-    <meta property="og:title" content="Gabriel Sgura — Resume">
-    <meta property="og:description" content="Staff Product Manager at Cora. Lending, payments and credit products in Brazilian fintech.">
-    <meta property="og:url" content="https://gabrielsgura.github.io/gsgura_resume/">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
-    <style>
-        /* Import a clean, modern font */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Gabriel Sgura — Resume</title>
+<meta name="description" content="Gabriel Sgura — Staff Product Manager at Cora. Lending, payments and credit products in Brazilian fintech.">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Gabriel Sgura — Resume">
+<meta property="og:description" content="Staff Product Manager at Cora. Lending, payments and credit products in Brazilian fintech.">
+<meta property="og:url" content="https://gabrielsgura.github.io/gsgura_resume/">
+<meta name="theme-color" content="#fbfcfa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1412" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: a career laid out as a credit statement — header with account summary, then line items (period · description · result) in ruled rows, figures right-aligned. */
+:root {
+  --paper: #fbfcfa;
+  --ink: #16201b;
+  --muted: #5d6b64;
+  --rule: #d9e0dc;
+  --ledger: #1d6b47;
+  --ledger-soft: #e7f1ea;
+  --font-body: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-data: 'Martian Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1412; --ink: #e3e9e5; --muted: #93a19a; --rule: #26302b;
+    --ledger: #6fcf9f; --ledger-soft: #15251d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1412; --ink: #e3e9e5; --muted: #93a19a; --rule: #26302b;
+  --ledger: #6fcf9f; --ledger-soft: #15251d; color-scheme: dark;
+}
 
-        :root {
-            --bg-color: #ffffff;
-            --text-main: #222222;
-            --text-strong: #000000;
-            --text-muted: #666666;
-            --text-faint: #cccccc;
-            --accent: #0f766e;
-            --tooltip-bg: #eeeeee;
-            --tooltip-text: #333333;
-            --transition-speed: 0.7s;
-        }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding: 0 20px;
+  padding-block: 48px 64px;
+}
+.sheet { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #121417;
-                --text-main: #e4e6e8;
-                --text-strong: #ffffff;
-                --text-muted: #9aa0a6;
-                --text-faint: #4a4f55;
-                --accent: #5eead4;
-                --tooltip-bg: #2a2e33;
-                --tooltip-text: #e4e6e8;
-            }
-        }
+a { color: var(--ledger); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--ledger); outline-offset: 3px; border-radius: 2px; }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+.label {
+  font-family: var(--font-data);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
 
-        /* The scroll container height is set in JS (TOTAL_STATES * STEP_HEIGHT) to allow scrolling through every state */
-        .scroll-container {
-            height: 600vh;
-            width: 100%;
-        }
+/* Header */
+.masthead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin: 18px 0 6px; text-wrap: balance; }
+.role { font-size: 1.15rem; color: var(--muted); margin: 0; }
+.role strong { color: var(--ink); font-weight: 600; }
 
-        /* The fixed canvas acts as our screen */
-        .fixed-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none; /* Let clicks pass through to interactive elements */
-        }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; border: 1px solid var(--rule); }
+.summary div { padding: 14px 16px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.summary div:last-child { border-right: 0; }
+.summary .value { font-family: var(--font-data); font-size: 0.95rem; font-weight: 500; }
+.summary .balance { background: var(--ledger-soft); }
+.summary .balance .value { color: var(--ledger); }
 
-        /* Generic transition classes */
-        .morphed-element {
-            position: absolute;
-            transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: auto;
-        }
+/* Statement */
+h2 { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.02em; margin: 0 0 4px; }
+.colhead, .item { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; }
+.colhead { grid-template-columns: 170px minmax(0, 1fr) 220px; padding: 8px 0; border-bottom: 1px solid var(--ink); }
+.colhead .r, .result { text-align: right; }
+.group { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px; border-bottom: 1px solid var(--rule); }
+.items { display: flex; flex-direction: column; min-width: 0; }
+.item { padding: 18px 0; align-items: start; }
+.item + .item { border-top: 1px dotted var(--rule); }
+.item > * { min-width: 0; }
+.period { font-family: var(--font-data); font-size: 0.8rem; color: var(--muted); padding-top: 21px; font-variant-numeric: tabular-nums; }
+.period small { display: block; font-family: var(--font-body); font-size: 0.85rem; color: var(--ink); font-weight: 600; margin-top: 8px; line-height: 1.35; }
+.group:not(.current) .period { border-right: 2px solid var(--rule); padding-right: 16px; }
+.desc h3 { font-size: 1.02rem; font-weight: 600; margin: 0; }
+.desc .org { color: var(--muted); font-weight: 400; }
+.desc p { margin: 6px 0 0; color: var(--muted); max-width: 52ch; }
+.result { font-family: var(--font-data); font-size: 0.85rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.result .pos { color: var(--ledger); }
+.result small { display: block; font-size: 0.7rem; color: var(--muted); font-weight: 400; margin-top: 4px; }
+.group.current .period { color: var(--ledger); }
+.group.current .desc h3::after { content: 'Current'; font-family: var(--font-data); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ledger); border: 1px solid var(--ledger); padding: 2px 6px; margin-left: 10px; vertical-align: 2px; }
 
-        .content-block {
-            position: absolute;
-            top: 100px; /* Leave space for top headers */
-            left: 20px;
-            right: 20px;
-            height: calc(100vh - 120px);
-            overflow-y: auto;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-            transition: all var(--transition-speed) ease;
-            box-sizing: border-box;
-        }
+.subtotal { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 2px solid var(--ink); flex-wrap: wrap; }
 
-        /* Responsive max-widths for desktop/mobile */
-        @media (min-width: 768px) {
-            .content-block {
-                left: 10%;
-                right: 10%;
-                top: 120px;
-            }
-        }
+/* Highlight entry */
+.entry { border: 1px solid var(--ledger); background: var(--ledger-soft); padding: 22px 24px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+.entry p { margin: 6px 0 0; max-width: 56ch; }
+.entry .big { font-family: var(--font-data); font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 600; color: var(--ledger); text-align: right; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.entry .big small { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 6px; }
 
-        /* Tooltip styling */
-        .tooltip-container {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
-        
-        .tooltip-text {
-            visibility: hidden;
-            width: 250px;
-            background-color: var(--tooltip-bg);
-            color: var(--tooltip-text);
-            text-align: center;
-            border-radius: 6px;
-            padding: 10px;
-            position: absolute;
-            z-index: 10; /* Increased to ensure it stays above other elements */
-            bottom: 150%; 
-            left: 50%;
-            transform: translateX(-50%); /* Better way to center than negative margins */
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.9rem;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-            pointer-events: none; /* Prevents tooltip from interfering with clicks */
-        }
-        
-        /* Mobile specific adjustments */
-        @media (max-width: 600px) {
-            .tooltip-text {
-                width: 200px; /* Narrower for small screens */
-                left: auto;
-                right: -50px; /* Aligns it toward the left since it's on the right of the screen */
-                transform: none;
-                bottom: 130%;
-            }
-        }
-        
-        .tooltip-container:hover .tooltip-text,
-        .tooltip-container.open .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
+/* Lower sections */
+.ledger-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px 40px; }
+.ledger-grid section { display: flex; flex-direction: column; gap: 10px; }
+.ledger-grid h2 { border-bottom: 1px solid var(--ink); padding-bottom: 8px; }
+.line { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dotted var(--rule); padding-bottom: 8px; }
+.line span:last-child { text-align: right; color: var(--muted); }
+.line .num { font-size: 0.78rem; }
 
-        a {
-            color: var(--accent);
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
+footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 2px solid var(--ink); padding-top: 12px; }
+footer p { margin: 0; color: var(--muted); font-size: 0.85rem; }
 
-        /* Helpers for content items */
-        .list-item {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            transition: all 0.5s ease;
-        }
-        
-        .sub-list {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            margin-left: 20px;
-            transition: all 0.6s ease;
-            color: var(--text-muted);
-            font-size: 1rem;
-            font-weight: 400;
-        }
+@media (max-width: 680px) {
+  body { padding-block: 32px 48px; }
+  .sheet { gap: 56px; }
 
-        .sub-list p { margin: 8px 0; }
+  /* Summary: 2×2 instead of a tall stack */
+  .summary { grid-template-columns: 1fr 1fr; }
+  .summary div { border-right: 0; border-bottom: 1px solid var(--rule); padding: 12px 14px; }
+  .summary div:nth-child(odd) { border-right: 1px solid var(--rule); }
+  .summary div:nth-last-child(-n+2) { border-bottom: 0; }
 
-        .bold-text { font-weight: 700; color: var(--text-strong); }
-        .blurred-text { filter: blur(3px); opacity: 0.4; }
-        .italic-text { font-style: italic; }
+  /* Positions: each period becomes its own block with a clear header band */
+  .colhead { display: none; }
+  .group { grid-template-columns: 1fr; gap: 0; border-bottom: 0; margin-top: 28px; }
+  .group:first-of-type { margin-top: 12px; }
+  .period, .group:not(.current) .period {
+    padding: 10px 14px; border: 0; background: var(--ledger-soft);
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .period small { margin-top: 0; font-size: 1rem; }
+  .items { border-left: 2px solid var(--rule); margin-left: 14px; padding-left: 16px; }
+  .group.current .items { border-left-color: var(--ledger); }
+  .item { grid-template-columns: 1fr; gap: 10px; padding: 20px 0; }
+  .item + .item { border-top: 1px solid var(--rule); }
+  .desc h3 { font-size: 1.05rem; }
+  .desc p { line-height: 1.6; }
+  .result { text-align: left; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    border-top: 1px dotted var(--rule); padding-top: 10px; }
+  .result::before { content: 'Result'; font-family: var(--font-data); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .result small { display: inline; margin-top: 0; }
+  .group.current .desc h3::after { display: inline-block; margin: 6px 0 0; }
+  .subtotal { margin-top: 28px; border-top: 2px solid var(--ink); flex-direction: column; gap: 6px; }
 
-        /* =========================================
-           STATE DEFINITIONS (Powered by data-state)
-           ========================================= */
+  .entry { grid-template-columns: 1fr; padding: 20px 18px; gap: 16px; }
+  .entry .big { text-align: left; }
 
-        /* --- ID 1: Name --- */
-        body[data-state="1"] #id1 {
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 2.5rem; font-weight: 700; text-align: center; width: 100%;
-        }
-        body:not([data-state="1"]) #id1 {
-            top: 25px; left: calc(100% - 25px); transform: translateX(-100%);
-            font-size: 1.2rem; font-weight: 600; text-align: right; width: auto; max-width: 40%;
-        }
-
-        /* --- State 1 Subtext --- */
-        #state1-sub {
-            top: calc(50% + 50px); left: 50%; transform: translate(-50%, 0);
-            text-align: center; width: 90%; color: var(--text-muted);
-        }
-        body:not([data-state="1"]) #state1-sub { opacity: 0; pointer-events: none; }
-
-        /* --- Main Titles (Morphing via ID) --- */
-        .section-title { opacity: 0; font-size: 1.5rem; font-weight: 700; max-width: 55%; }
-
-        /* ID 2: "What you will find here" */
-        body[data-state="2"] #id2, body[data-state="3"] #id2, body[data-state="4"] #id2, body[data-state="5"] #id2 {
-            top: 25px; left: 25px; opacity: 1; transform: none;
-        }
-
-        /* ID 6: "Professional Experience" */
-        body[data-state="6"] #id6 { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; font-size: 2.5rem; text-align: center; max-width: 100%; }
-        body[data-state="7"] #id6, body[data-state="8"] #id6, body[data-state="9"] #id6, body[data-state="10"] #id6 {
-            top: 25px; left: 25px; opacity: 1; transform: none;
-        }
-
-        /* ID 11: "Education and Languages" */
-        body[data-state="11"] #id11 { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; font-size: 2.5rem; text-align: center; max-width: 100%; }
-        body[data-state="12"] #id11 { top: 25px; left: 25px; opacity: 1; transform: none; }
-
-        /* ID 13: "Additional Information" */
-        body[data-state="13"] #id13 { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; font-size: 2.5rem; text-align: center; max-width: 100%; }
-        body[data-state="14"] #id13, body[data-state="15"] #id13 { top: 25px; left: 25px; opacity: 1; transform: none; }
-
-
-        /* --- Content Blocks Visibility --- */
-        body[data-state="2"] #block-2-5, body[data-state="3"] #block-2-5, body[data-state="4"] #block-2-5, body[data-state="5"] #block-2-5 {
-            opacity: 1; pointer-events: auto; transform: translateY(0);
-        }
-        body[data-state="7"] #block-7-10, body[data-state="8"] #block-7-10, body[data-state="9"] #block-7-10, body[data-state="10"] #block-7-10 {
-            opacity: 1; pointer-events: auto; transform: translateY(0);
-        }
-        body[data-state="12"] #block-12 {
-            opacity: 1; pointer-events: auto; transform: translateY(0);
-        }
-        body[data-state="14"] #block-14-15, body[data-state="15"] #block-14-15 {
-            opacity: 1; pointer-events: auto; transform: translateY(0);
-        }
-
-        /* =========================================
-           INNER CONTENT DYNAMICS
-           ========================================= */
-
-        /* Block 2-5 */
-        body[data-state="3"] #id3 { font-weight: 700; }
-        body[data-state="3"] #id3_sub { max-height: 200px; opacity: 1; margin-top: 10px; }
-        body[data-state="4"] #id3, body[data-state="5"] #id3 { filter: blur(3px); opacity: 0.4; }
-        
-        body[data-state="4"] #id4 { font-weight: 700; }
-        body[data-state="4"] #id4_sub { max-height: 200px; opacity: 1; margin-top: 10px; }
-        body[data-state="3"] #id4, body[data-state="5"] #id4 { filter: blur(3px); opacity: 0.4; }
-
-        body[data-state="5"] #id5 { font-weight: 700; }
-        body[data-state="5"] #id5_sub { max-height: 200px; opacity: 1; margin-top: 10px; }
-        body[data-state="3"] #id5, body[data-state="4"] #id5 { filter: blur(3px); opacity: 0.4; }
-
-        /* Block 7-10 */
-        .hidden-years { display: inline-block; transition: all 0.5s ease; overflow: hidden; white-space: nowrap; }
-        body[data-state="8"] .hidden-years, body[data-state="9"] .hidden-years, body[data-state="10"] .hidden-years { max-width: 0; opacity: 0; }
-
-        body[data-state="7"] #id_cora { font-weight: 700; }
-        body[data-state="8"] #id_cora, body[data-state="9"] #id_cora, body[data-state="10"] #id_cora { filter: blur(3px); opacity: 0.4; }
-        body[data-state="8"] #id_cora_sub, body[data-state="9"] #id_cora_sub, body[data-state="10"] #id_cora_sub { max-height: 0; opacity: 0; margin-top: 0; }
-        #id_cora_sub { max-height: 200px; opacity: 1; margin-top: 10px; }
-        body[data-state="7"] #id7, body[data-state="7"] #id8 { opacity: 0.6; }
-
-        body[data-state="8"] #id7, body[data-state="9"] #id7 { font-weight: 700; }
-        body[data-state="10"] #id7, body[data-state="10"] #id9, body[data-state="10"] #id10 { filter: blur(3px); opacity: 0.4; }
-        
-        body[data-state="8"] #id9 { font-weight: 700; }
-        body[data-state="9"] #id9 { filter: blur(3px); opacity: 0.4; }
-        body[data-state="8"] #id9_scope { max-height: 300px; opacity: 1; margin-top: 10px; }
-        
-        body[data-state="9"] #id10 { font-weight: 700; }
-        body[data-state="8"] #id10 { filter: blur(3px); opacity: 0.4; }
-        body[data-state="9"] #id10_scope { max-height: 300px; opacity: 1; margin-top: 10px; }
-
-        body[data-state="10"] #id8 { font-weight: 700; }
-        body[data-state="8"] #id8, body[data-state="9"] #id8 { filter: blur(3px); opacity: 0.4; }
-        body[data-state="10"] #id8_sub { max-height: 500px; opacity: 1; margin-top: 10px; }
-
-        /* Block 14-15 */
-        body[data-state="15"] #id14, body[data-state="15"] #id15, body[data-state="15"] #id16 { filter: blur(3px); opacity: 0.4; }
-        body[data-state="15"] #id17 { font-weight: 700; }
-        body[data-state="15"] #id18, body[data-state="15"] #id19, body[data-state="15"] #id20 { opacity: 0; max-height: 0; margin: 0; }
-        
-        #id17_example { max-height: 0; opacity: 0; overflow: hidden; margin-left: 20px; transition: all 0.6s ease; color: var(--text-main); font-weight: normal; }
-        body[data-state="15"] #id17_example { max-height: 400px; opacity: 1; margin-top: 10px; }
-
-        body[data-state="16"] #id1 { top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.5rem; font-weight: 700; text-align: center; width: 100%; }
-
-        /* Show the subtext links again */
-        body[data-state="16"] #state1-sub { opacity: 1; pointer-events: auto; top: calc(50% + 50px); left: 50%; transform: translate(-50%, 0); text-align: center; width: 90%; color: var(--text-muted); }
-
-        /* Hide the block 14-15 content and the section title */
-        body[data-state="16"] #block-14-15, 
-        body[data-state="16"] #id13 { opacity: 0; pointer-events: none; }
-
-        /* Scroll indicator */
-        .down-arrow {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            font-size: 2rem; animation: bounce 2s; color: var(--text-faint);
-            cursor: pointer; /* Add this */
-            pointer-events: auto; /* Add this */
-            z-index: 100; /* Ensure it stays on top */
-            -webkit-user-select: none;  /* iOS Safari */
-            -ms-user-select: none;      /* Internet Explorer/Edge */
-            user-select: none;          /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
-    
-            /* Prevent the "tap highlight" color on mobile */
-            -webkit-tap-highlight-color: transparent;
-    
-            /* Improve touch response */
-            touch-action: manipulation;
-        }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
-        .down-arrow:hover { color: var(--accent); }
-
-        /* Progress bar */
-        .progress-bar {
-            position: fixed; top: 0; left: 0; height: 3px; width: 100%;
-            background: var(--accent);
-            transform-origin: left; transform: scaleX(0);
-            transition: transform 0.5s ease;
-            z-index: 100; pointer-events: none;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            :root { --transition-speed: 0.2s; }
-            html, body { scroll-behavior: auto; }
-            .down-arrow { animation: none; }
-        }
-
-        /* Print / Save as PDF: linear layout with everything expanded */
-        @media print {
-            :root {
-                --bg-color: #ffffff; --text-main: #222222; --text-strong: #000000;
-                --text-muted: #555555; --accent: #222222;
-            }
-            body, html { overflow: visible; }
-            .scroll-container, .down-arrow, .progress-bar, .tooltip-container { display: none !important; }
-            .fixed-canvas { position: static; width: auto; height: auto; padding: 0 1cm; }
-            .morphed-element, .content-block, .section-title, #state1-sub, #id1 {
-                position: static !important; transform: none !important; opacity: 1 !important;
-                filter: none !important; width: auto !important; max-width: none !important;
-                height: auto !important; overflow: visible !important; text-align: left !important;
-                transition: none !important;
-            }
-            #id1 { font-size: 2rem !important; font-weight: 700 !important; margin-top: 0.5cm; }
-            #state1-sub { margin-bottom: 0.6cm; }
-            .section-title { font-size: 1.3rem !important; margin: 0.6cm 0 0.3cm; break-after: avoid; }
-            .list-item { font-size: 1rem; filter: none !important; opacity: 1 !important; break-inside: avoid; }
-            .sub-list, #id17_example, #id18, #id19, #id20 {
-                max-height: none !important; opacity: 1 !important; margin-top: 6px !important;
-            }
-            .hidden-years { max-width: none !important; opacity: 1 !important; }
-            /* Keep the order: name, overview, experience, education, additional info */
-            .fixed-canvas { display: flex; flex-direction: column; }
-            #id1 { order: 1; } #state1-sub { order: 2; }
-            #id2 { order: 3; } #block-2-5 { order: 4; }
-            #id6 { order: 5; } #block-7-10 { order: 6; }
-            #id11 { order: 7; } #block-12 { order: 8; }
-            #id13 { order: 9; } #block-14-15 { order: 10; }
-        }
-
-    </style>
+  /* Reference lines: label above value */
+  .ledger-grid { gap: 40px; }
+  .line { flex-direction: column; gap: 2px; padding-bottom: 10px; }
+  .line span:last-child { text-align: left; }
+}
+@media print {
+  body { padding-block: 0; }
+  .sheet { gap: 28px; }
+  .item, .entry { break-inside: avoid; }
+}
+</style>
 </head>
-<body data-state="1">
+<body>
+<main class="sheet">
+  <header>
+    <div class="masthead">
+      <span class="label">Career statement</span>
+      <span class="label">Issued 10/2026 · <a href="https://sgura.app" target="_blank" rel="noopener">sgura.app</a></span>
+    </div>
+    <h1>Gabriel Sgura</h1>
+    <p class="role"><strong>Staff Product Manager</strong> · Lending, payments and credit in Brazilian fintech</p>
+  </header>
 
-    <div class="scroll-container">
+  <section class="summary" aria-label="Summary">
+    <div class="balance"><span class="label">Current position</span><span class="value">Staff PM · Cora</span></div>
+    <div><span class="label">In product since</span><span class="value">2017</span></div>
+    <div><span class="label">Focus</span><span class="value">Credit &amp; payments</span></div>
+    <div><span class="label">Contact</span><span class="value"><a href="https://linkedin.com/in/gabrielsgura" target="_blank" rel="noopener">LinkedIn</a></span></div>
+  </section>
+
+  <section aria-labelledby="positions">
+    <h2 id="positions">Positions</h2>
+    <div class="colhead"><span class="label">Period</span><span class="label">Description</span><span class="label r">Result</span></div>
+
+    <div class="group current">
+      <span class="period">06/2026 – now</span>
+      <div class="items">
+        <div class="item">
+          <div class="desc"><h3>Staff Product Manager <span class="org">· Cora</span></h3>
+            <p>Lending products for SMBs.</p></div>
+          <span class="result">In progress</span>
         </div>
-
-    <div class="fixed-canvas">
-        
-        <div id="id1" class="morphed-element">Gabriel Sgura</div>
-        
-        <div id="state1-sub" class="morphed-element">
-            Staff Product Manager @ Cora | <a href="https://linkedin.com/in/gabrielsgura" target="_blank">linkedin.com/in/gabrielsgura</a> | 
-            <div class="tooltip-container">
-                <span class="info-emoji" style="color: gray;">ℹ️</span>
-                <div class="tooltip-text">Phone number and e-mail upon linkedin request, in the interest of privacy</div>
-            </div>
-        </div>
-        <div id="next-state-btn" class="down-arrow">↓</div>
-        <div id="progress-bar" class="progress-bar"></div>
-
-        <div id="id2" class="morphed-element section-title">What you will find here</div>
-        <div id="id6" class="morphed-element section-title">Professional Experience</div>
-        <div id="id11" class="morphed-element section-title">Education and Languages</div>
-        <div id="id13" class="morphed-element section-title">Additional Information</div>
-
-
-        <div id="block-2-5" class="content-block">
-            <div id="id3" class="list-item">1. Product Management experience
-                <div id="id3_sub" class="sub-list">
-                    <p>1.a. Building and scaling new products;</p>
-                    <p>1.b. Tweaking well established ones;</p>
-                    <p>1.c. Typically entering contexts with little structure and leaving after achieving stability.</p>
-                </div>
-            </div>
-            <div id="id4" class="list-item">2. Knowledge of regulated financial products
-                <div id="id4_sub" class="sub-list">
-                    <p>2.a. Revolving and instalment credit;</p>
-                    <p>2.b. Payments, and receivable financing;</p>
-                    <p>2.c. Brazilian financial market infrastructures.</p>
-                </div>
-            </div>
-            <div id="id5" class="list-item">3. A generalist profile
-                <div id="id5_sub" class="sub-list">
-                    <p>3.a. Team building and people development;</p>
-                    <p>3.b. Business sense + Technical awareness;</p>
-                    <p>3.c. The ability to dive deep when necessary.</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="block-7-10" class="content-block">
-            <div id="id_cora" class="list-item">1. [2026-now] Staff Product Manager - Cora
-                <div id="id_cora_sub" class="sub-list">
-                    <p><strong>Scope:</strong> Lending products for SMBs.</p>
-                </div>
-            </div>
-
-            <div id="id7" class="list-item">2. [2020-2026] Group Product Manager - Stone
-                <div class="sub-list" style="max-height: none; opacity: 1; margin-top: 10px; overflow: visible;">
-                    
-                    <div id="id9" class="list-item" style="color: var(--text-main);">2.a. Credit Analysis and Offers platforms
-                        <div id="id9_scope" class="sub-list">
-                            <p><strong>Scope:</strong> Management of the Credit Analysis and Offers tribe. Responsible for scaling the platform and helping grow the credit portfolio.</p>
-                            <p><strong>Main results:</strong> Growth of the credit portfolio from 300 million to over 2 billion reais through increase in credit limit available.</p>
-                        </div>
-                    </div>
-
-                    <div id="id10" class="list-item" style="color: var(--text-main);">2.b. Acquirer payments and customer receivables financing
-                        <div id="id10_scope" class="sub-list">
-                            <p><strong>Scope:</strong> Management of the receivables processing, financing and payments platform. Responsible for maintaining a high level of service and enabling new financial products.</p>
-                            <p><strong>Main results:</strong><br>
-                            Launch of same day payment product, today one of the main ways customers chose to receive their sales;<br>
-                            Successful integration to the brazilian credit card receivables trade repository.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            
-            <div id="id8" class="list-item">3. [2017-2020] Product Manager - Stone
-                <div id="id8_sub" class="sub-list">
-                    <p><strong>3.a. Credit:</strong><br>
-                    Decrease of operational repayment loss (~20%) through implementation of custom repayment engine with the use of credit card receivables;<br>
-                    Shift from partnership-based funding to self-funding.</p>
-                    <p><strong>3.b. Acquirer:</strong><br>
-                    Construction of a bank lock platform from scratch.</p>
-                    <p><strong>3.c. Customer Servicing Interface</strong><br>
-                    Closure of the development team, by stabilization of the platform.</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="block-12" class="content-block">
-            <div class="list-item">
-                <span class="italic-text">01/2012 – 08/2018</span> - <strong>UNIVERSIDADE FEDERAL FLUMINENSE</strong> – Niterói, Brazil<br>
-                Environmental Engineering
-            </div>
-            <div class="list-item">
-                <span class="italic-text">07/2015 – 06/2016</span> - <strong>UNIVERSITY COLLEGE CORK</strong> – Cork, Ireland<br>
-                Civil and Environmental Engineering
-            </div>
-            <div class="list-item">
-                Fluent English<br>
-                Middle School at ACS Egham | International School in London
-            </div>
-            <div class="list-item">
-                Native Brazilian Portuguese<br>
-            </div>
-        </div>
-
-
-        <div id="block-14-15" class="content-block">
-            <div id="id14" class="list-item">1. Product certifications
-                <div class="sub-list" style="max-height: none; opacity: 1; margin-top: 10px; overflow: visible;">
-                    <p id="id15" style="color: var(--text-main); transition: all 0.5s;">1.a. Reforge Product Foundations</p>
-                    <p id="id16" style="color: var(--text-main); transition: all 0.5s;">1.b. Reforge Product Leadership</p>
-                </div>
-            </div>
-            <div id="id17" class="list-item">2. Applied technical skills
-                <div class="sub-list" style="max-height: none; opacity: 1; margin-top: 10px; overflow: visible;">
-                    <p id="id18" style="color: var(--text-main); transition: all 0.5s;">2.a. SQL - daily usage for data analysis</p>
-                    <p id="id19" style="color: var(--text-main); transition: all 0.5s;">2.b. Python - scripts for automations</p>
-                    <p id="id20" style="color: var(--text-main); transition: all 0.5s;">2.c. AI tools - for quick prototyping and automations</p>
-                </div>
-                <div id="id17_example">
-                    Example: Brought a saving of more than R$2 million over a year, with a cost of R$4.000 by using AI and python to optimize visits for the commercial team.
-                    <p style="margin-top: 12px;">Personal projects built while learning:</p>
-                    <p>→ <a href="https://sgura.app/" target="_blank">sgura.app</a> — hub of small apps built and shipped with Claude Code</p>
-                </div>
-            </div>
-        </div>
-
+      </div>
     </div>
 
-    <script>
-        // Calculate which state we are in based on scroll position
-        const TOTAL_STATES = 16;
-        const STEP_HEIGHT = 400;
-        let isScrolling = false;
-        
-        const scrollContainer = document.querySelector('.scroll-container');
-        scrollContainer.style.height = (TOTAL_STATES * STEP_HEIGHT) + window.innerHeight + "px";
-        
-        const nextBtn = document.getElementById('next-state-btn');
-        const progressBar = document.getElementById('progress-bar');
+    <div class="group">
+      <span class="period">2020 – 2026<small>Group Product Manager · Stone</small></span>
+      <div class="items">
+        <div class="item">
+          <div class="desc"><h3>Credit analysis and offers</h3>
+            <p>Led the tribe. Scaled the platform and grew the credit portfolio by increasing available credit limits.</p></div>
+          <span class="result"><span class="pos">R$ 300M → R$ 2B</span><small>credit portfolio</small></span>
+        </div>
+        <div class="item">
+          <div class="desc"><h3>Payments and receivables financing</h3>
+            <p>Receivables processing, financing and payments platform. Kept service levels high while enabling new financial products, including integration with the Brazilian card receivables registry.</p></div>
+          <span class="result"><span class="pos">Same-day payout</span><small>now a main way merchants get paid</small></span>
+        </div>
+      </div>
+    </div>
 
-        // --- NEW SCROLL LOCK LOGIC ---
-        
-        function goToState(targetState) {
-            if (targetState < 1 || targetState > TOTAL_STATES || isScrolling) return;
-        
-            isScrolling = true;
-            const targetScroll = (targetState - 1) * STEP_HEIGHT;
-        
-            window.scrollTo({
-                top: targetScroll,
-                behavior: 'smooth'
-            });
-        
-            // Re-enable scrolling after the smooth scroll finishes
-            setTimeout(() => {
-                isScrolling = false;
-            }, 600); // Matches your CSS transition speed roughly
-        }
-        
-        // Intercept Wheel (Desktop) and Touch (Mobile)
-        window.addEventListener('wheel', (e) => {
-            e.preventDefault(); // Stop native scroll
-            if (isScrolling) return;
-        
-            const direction = e.deltaY > 0 ? 1 : -1;
-            const currentState = Math.floor(window.scrollY / STEP_HEIGHT) + 1;
-            goToState(currentState + direction);
-        }, { passive: false });
-        
-        // Handle Mobile Touch
-        let touchStartY = 0;
-        window.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-        
-        window.addEventListener('touchmove', (e) => {
-            e.preventDefault(); // Prevent accidental multi-state glides
-            if (isScrolling) return;
-        
-            const touchEndY = e.touches[0].clientY;
-            const diff = touchStartY - touchEndY;
-        
-            if (Math.abs(diff) > 50) { // Threshold to trigger move
-                const direction = diff > 0 ? 1 : -1;
-                const currentState = Math.floor(window.scrollY / STEP_HEIGHT) + 1;
-                goToState(currentState + direction);
-            }
-        }, { passive: false });
-        
-        // Keep your existing state attributes update logic
-        window.addEventListener('scroll', () => {
-            const scrollPos = window.scrollY;
-            let currentState = Math.round(scrollPos / STEP_HEIGHT) + 1;
-        
-            if (currentState < 1) currentState = 1;
-            if (currentState > TOTAL_STATES) currentState = TOTAL_STATES;
-        
-            document.body.setAttribute('data-state', currentState);
-        
-            nextBtn.style.display = (currentState === TOTAL_STATES) ? 'none' : 'block';
-            progressBar.style.transform = `scaleX(${(currentState - 1) / (TOTAL_STATES - 1)})`;
-        });
+    <div class="group">
+      <span class="period">2017 – 2020<small>Product Manager · Stone</small></span>
+      <div class="items">
+        <div class="item">
+          <div class="desc"><h3>Credit</h3>
+            <p>Built a custom repayment engine on card receivables. Moved lending from partnership funding to self-funding.</p></div>
+          <span class="result"><span class="pos">−20%</span><small>operational repayment loss</small></span>
+        </div>
+        <div class="item">
+          <div class="desc"><h3>Acquirer</h3>
+            <p>Built a bank lock platform from scratch.</p></div>
+          <span class="result">Launched</span>
+        </div>
+        <div class="item">
+          <div class="desc"><h3>Customer servicing</h3>
+            <p>Stabilized the servicing interface so the dedicated team could be wound down.</p></div>
+          <span class="result">Stabilized</span>
+        </div>
+      </div>
+    </div>
 
-        // Keyboard navigation
-        window.addEventListener('keydown', (e) => {
-            const next = ['ArrowDown', 'PageDown', ' '].includes(e.key);
-            const prev = ['ArrowUp', 'PageUp'].includes(e.key);
-            if (!next && !prev) return;
-            e.preventDefault();
-            const currentState = Math.round(window.scrollY / STEP_HEIGHT) + 1;
-            goToState(currentState + (next ? 1 : -1));
-        });
+    <div class="subtotal">
+      <span class="label">How I usually work</span>
+      <span>Join areas with little structure. Leave once they run on their own.</span>
+    </div>
+  </section>
 
-        // Tooltip: tap to toggle on touch devices
-        const tooltip = document.querySelector('.tooltip-container');
-        tooltip.addEventListener('click', (e) => {
-            e.stopPropagation();
-            tooltip.classList.toggle('open');
-        });
-        document.addEventListener('click', () => tooltip.classList.remove('open'));
-        
-        // Update button to use the new logic
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const currentState = Math.floor(window.scrollY / STEP_HEIGHT) + 1;
-            goToState(currentState + 1);
-        });
-    </script>
+  <section class="entry" aria-label="Notable entry">
+    <div>
+      <span class="label">Notable entry · AI + Python</span>
+      <p>Optimized commercial team visit routes with a small AI and Python tool. Built on a budget, used for a full year.</p>
+    </div>
+    <div class="big">R$ 2.000.000<small>saved · cost R$ 4.000 · ~500×</small></div>
+  </section>
+
+  <div class="ledger-grid">
+    <section>
+      <h2>Education</h2>
+      <div class="line"><span>Environmental Engineering<br><span class="label">Universidade Federal Fluminense</span></span><span class="num">2012–2018</span></div>
+      <div class="line"><span>Civil &amp; Environmental Eng.<br><span class="label">University College Cork</span></span><span class="num">2015–2016</span></div>
+    </section>
+    <section>
+      <h2>Languages</h2>
+      <div class="line"><span>Portuguese</span><span>Native</span></div>
+      <div class="line"><span>English</span><span>Fluent · ACS Egham, London</span></div>
+    </section>
+    <section>
+      <h2>Certifications &amp; skills</h2>
+      <div class="line"><span>Reforge</span><span>Product Foundations, Product Leadership</span></div>
+      <div class="line"><span>SQL</span><span>Daily, data analysis</span></div>
+      <div class="line"><span>Python, AI tools</span><span>Automation, prototyping</span></div>
+      <div class="line"><span><a href="https://sgura.app" target="_blank" rel="noopener">sgura.app</a></span><span>Side apps built with Claude Code</span></div>
+    </section>
+  </div>
+
+  <footer>
+    <p>Phone and e-mail on LinkedIn request, for privacy.</p>
+    <p class="label">End of statement</p>
+  </footer>
+</main>
 </body>
 </html>
