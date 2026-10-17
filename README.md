@@ -1,4 +1,4 @@
 # gsgura_resume
-English resume of Gabriel Sgura
+English resume of Gabriel Sgura — a single-page, scroll-driven HTML resume hosted on GitHub Pages.
 
-Please don't judge my code. It's all AI, if it's a mess, it's ok, just trying to land a job.
+Built with AI assistance. More side projects at [sgura.app](https://sgura.app).

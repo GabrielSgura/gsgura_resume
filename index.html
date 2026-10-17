@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Sgura - Curriculum</title>
+    <title>Gabriel Sgura — Resume</title>
+    <meta name="description" content="Gabriel Sgura — Staff Product Manager at Cora. Lending, payments and credit products in Brazilian fintech.">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Gabriel Sgura — Resume">
+    <meta property="og:description" content="Staff Product Manager at Cora. Lending, payments and credit products in Brazilian fintech.">
+    <meta property="og:url" content="https://gabrielsgura.github.io/gsgura_resume/">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
     <style>
         /* Import a clean, modern font */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -11,8 +18,26 @@
         :root {
             --bg-color: #ffffff;
             --text-main: #222222;
+            --text-strong: #000000;
             --text-muted: #666666;
+            --text-faint: #cccccc;
+            --accent: #0f766e;
+            --tooltip-bg: #eeeeee;
+            --tooltip-text: #333333;
             --transition-speed: 0.7s;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121417;
+                --text-main: #e4e6e8;
+                --text-strong: #ffffff;
+                --text-muted: #9aa0a6;
+                --text-faint: #4a4f55;
+                --accent: #5eead4;
+                --tooltip-bg: #2a2e33;
+                --tooltip-text: #e4e6e8;
+            }
         }
 
         body, html {
@@ -25,7 +50,7 @@
             scroll-behavior: smooth;
         }
 
-        /* The scroll container sets the height to 15 viewports to allow scrolling through 15 states */
+        /* The scroll container height is set in JS (TOTAL_STATES * STEP_HEIGHT) to allow scrolling through every state */
         .scroll-container {
             height: 600vh;
             width: 100%;
@@ -81,8 +106,8 @@
         .tooltip-text {
             visibility: hidden;
             width: 250px;
-            background-color: #eee;
-            color: #333;
+            background-color: var(--tooltip-bg);
+            color: var(--tooltip-text);
             text-align: center;
             border-radius: 6px;
             padding: 10px;
@@ -109,14 +134,16 @@
             }
         }
         
-        .tooltip-container:hover .tooltip-text {
+        .tooltip-container:hover .tooltip-text,
+        .tooltip-container.open .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
 
         a {
-            color: var(--text-main);
+            color: var(--accent);
             text-decoration: underline;
+            text-underline-offset: 3px;
         }
 
         /* Helpers for content items */
@@ -134,12 +161,12 @@
             transition: all 0.6s ease;
             color: var(--text-muted);
             font-size: 1rem;
-	    font-weight: 400;
+            font-weight: 400;
         }
 
         .sub-list p { margin: 8px 0; }
-        
-        .bold-text { font-weight: 700; color: #000; }
+
+        .bold-text { font-weight: 700; color: var(--text-strong); }
         .blurred-text { filter: blur(3px); opacity: 0.4; }
         .italic-text { font-style: italic; }
 
@@ -222,6 +249,12 @@
         .hidden-years { display: inline-block; transition: all 0.5s ease; overflow: hidden; white-space: nowrap; }
         body[data-state="8"] .hidden-years, body[data-state="9"] .hidden-years, body[data-state="10"] .hidden-years { max-width: 0; opacity: 0; }
 
+        body[data-state="7"] #id_cora { font-weight: 700; }
+        body[data-state="8"] #id_cora, body[data-state="9"] #id_cora, body[data-state="10"] #id_cora { filter: blur(3px); opacity: 0.4; }
+        body[data-state="8"] #id_cora_sub, body[data-state="9"] #id_cora_sub, body[data-state="10"] #id_cora_sub { max-height: 0; opacity: 0; margin-top: 0; }
+        #id_cora_sub { max-height: 200px; opacity: 1; margin-top: 10px; }
+        body[data-state="7"] #id7, body[data-state="7"] #id8 { opacity: 0.6; }
+
         body[data-state="8"] #id7, body[data-state="9"] #id7 { font-weight: 700; }
         body[data-state="10"] #id7, body[data-state="10"] #id9, body[data-state="10"] #id10 { filter: blur(3px); opacity: 0.4; }
         
@@ -257,7 +290,7 @@
         /* Scroll indicator */
         .down-arrow {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            font-size: 2rem; animation: bounce 2s; color: #ccc;
+            font-size: 2rem; animation: bounce 2s; color: var(--text-faint);
             cursor: pointer; /* Add this */
             pointer-events: auto; /* Add this */
             z-index: 100; /* Ensure it stays on top */
@@ -272,7 +305,54 @@
             touch-action: manipulation;
         }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
-        /*body:not([data-state="1"]) .down-arrow { opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+        .down-arrow:hover { color: var(--accent); }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed; top: 0; left: 0; height: 3px; width: 100%;
+            background: var(--accent);
+            transform-origin: left; transform: scaleX(0);
+            transition: transform 0.5s ease;
+            z-index: 100; pointer-events: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            :root { --transition-speed: 0.2s; }
+            html, body { scroll-behavior: auto; }
+            .down-arrow { animation: none; }
+        }
+
+        /* Print / Save as PDF: linear layout with everything expanded */
+        @media print {
+            :root {
+                --bg-color: #ffffff; --text-main: #222222; --text-strong: #000000;
+                --text-muted: #555555; --accent: #222222;
+            }
+            body, html { overflow: visible; }
+            .scroll-container, .down-arrow, .progress-bar, .tooltip-container { display: none !important; }
+            .fixed-canvas { position: static; width: auto; height: auto; padding: 0 1cm; }
+            .morphed-element, .content-block, .section-title, #state1-sub, #id1 {
+                position: static !important; transform: none !important; opacity: 1 !important;
+                filter: none !important; width: auto !important; max-width: none !important;
+                height: auto !important; overflow: visible !important; text-align: left !important;
+                transition: none !important;
+            }
+            #id1 { font-size: 2rem !important; font-weight: 700 !important; margin-top: 0.5cm; }
+            #state1-sub { margin-bottom: 0.6cm; }
+            .section-title { font-size: 1.3rem !important; margin: 0.6cm 0 0.3cm; break-after: avoid; }
+            .list-item { font-size: 1rem; filter: none !important; opacity: 1 !important; break-inside: avoid; }
+            .sub-list, #id17_example, #id18, #id19, #id20 {
+                max-height: none !important; opacity: 1 !important; margin-top: 6px !important;
+            }
+            .hidden-years { max-width: none !important; opacity: 1 !important; }
+            /* Keep the order: name, overview, experience, education, additional info */
+            .fixed-canvas { display: flex; flex-direction: column; }
+            #id1 { order: 1; } #state1-sub { order: 2; }
+            #id2 { order: 3; } #block-2-5 { order: 4; }
+            #id6 { order: 5; } #block-7-10 { order: 6; }
+            #id11 { order: 7; } #block-12 { order: 8; }
+            #id13 { order: 9; } #block-14-15 { order: 10; }
+        }
 
     </style>
 </head>
@@ -286,13 +366,14 @@
         <div id="id1" class="morphed-element">Gabriel Sgura</div>
         
         <div id="state1-sub" class="morphed-element">
-            Product Management | <a href="https://linkedin.com/in/gabrielsgura" target="_blank">linkedin.com/in/gabrielsgura</a> | 
+            Staff Product Manager @ Cora | <a href="https://linkedin.com/in/gabrielsgura" target="_blank">linkedin.com/in/gabrielsgura</a> | 
             <div class="tooltip-container">
                 <span class="info-emoji" style="color: gray;">ℹ️</span>
                 <div class="tooltip-text">Phone number and e-mail upon linkedin request, in the interest of privacy</div>
             </div>
         </div>
-	<div id="next-state-btn" class="down-arrow">↓</div>
+        <div id="next-state-btn" class="down-arrow">↓</div>
+        <div id="progress-bar" class="progress-bar"></div>
 
         <div id="id2" class="morphed-element section-title">What you will find here</div>
         <div id="id6" class="morphed-element section-title">Professional Experience</div>
@@ -326,17 +407,23 @@
 
 
         <div id="block-7-10" class="content-block">
-            <div id="id7" class="list-item">1. [2020-2026] Group Product Manager - Stone
+            <div id="id_cora" class="list-item">1. [2026-now] Staff Product Manager - Cora
+                <div id="id_cora_sub" class="sub-list">
+                    <p><strong>Scope:</strong> Lending products for SMBs.</p>
+                </div>
+            </div>
+
+            <div id="id7" class="list-item">2. [2020-2026] Group Product Manager - Stone
                 <div class="sub-list" style="max-height: none; opacity: 1; margin-top: 10px; overflow: visible;">
                     
-                    <div id="id9" class="list-item" style="color: var(--text-main);">1.a. Credit Analysis and Offers platforms
+                    <div id="id9" class="list-item" style="color: var(--text-main);">2.a. Credit Analysis and Offers platforms
                         <div id="id9_scope" class="sub-list">
                             <p><strong>Scope:</strong> Management of the Credit Analysis and Offers tribe. Responsible for scaling the platform and helping grow the credit portfolio.</p>
                             <p><strong>Main results:</strong> Growth of the credit portfolio from 300 million to over 2 billion reais through increase in credit limit available.</p>
                         </div>
                     </div>
 
-                    <div id="id10" class="list-item" style="color: var(--text-main);">1.b. Acquirer payments and customer receivables financing
+                    <div id="id10" class="list-item" style="color: var(--text-main);">2.b. Acquirer payments and customer receivables financing
                         <div id="id10_scope" class="sub-list">
                             <p><strong>Scope:</strong> Management of the receivables processing, financing and payments platform. Responsible for maintaining a high level of service and enabling new financial products.</p>
                             <p><strong>Main results:</strong><br>
@@ -348,14 +435,14 @@
                 </div>
             </div>
             
-            <div id="id8" class="list-item">2. [2017-2020] Product Manager - Stone 
+            <div id="id8" class="list-item">3. [2017-2020] Product Manager - Stone
                 <div id="id8_sub" class="sub-list">
-                    <p><strong>2.a. Credit:</strong><br>
+                    <p><strong>3.a. Credit:</strong><br>
                     Decrease of operational repayment loss (~20%) through implementation of custom repayment engine with the use of credit card receivables;<br>
                     Shift from partnership-based funding to self-funding.</p>
-                    <p><strong>2.b. Acquirer:</strong><br>
+                    <p><strong>3.b. Acquirer:</strong><br>
                     Construction of a bank lock platform from scratch.</p>
-                    <p><strong>2.c. Customer Servicing Interface</strong><br>
+                    <p><strong>3.c. Customer Servicing Interface</strong><br>
                     Closure of the development team, by stabilization of the platform.</p>
                 </div>
             </div>
@@ -375,7 +462,7 @@
                 Fluent English<br>
                 Middle School at ACS Egham | International School in London
             </div>
-	    <div class="list-item">
+            <div class="list-item">
                 Native Brazilian Portuguese<br>
             </div>
         </div>
@@ -397,8 +484,7 @@
                 <div id="id17_example">
                     Example: Brought a saving of more than R$2 million over a year, with a cost of R$4.000 by using AI and python to optimize visits for the commercial team.
                     <p style="margin-top: 12px;">Personal projects built while learning:</p>
-                    <p>→ <a href="https://licita-mais.vercel.app/" target="_blank">licita-mais.vercel.app</a> — learning how to use agents</p>
-                    <p>→ <a href="https://movie-picker-mocha.vercel.app/" target="_blank">movie-picker-mocha.vercel.app</a> — learning how to ship with Claude Code</p>
+                    <p>→ <a href="https://sgura.app/" target="_blank">sgura.app</a> — hub of small apps built and shipped with Claude Code</p>
                 </div>
             </div>
         </div>
@@ -415,7 +501,8 @@
         scrollContainer.style.height = (TOTAL_STATES * STEP_HEIGHT) + window.innerHeight + "px";
         
         const nextBtn = document.getElementById('next-state-btn');
-        
+        const progressBar = document.getElementById('progress-bar');
+
         // --- NEW SCROLL LOCK LOGIC ---
         
         function goToState(targetState) {
@@ -476,7 +563,26 @@
             document.body.setAttribute('data-state', currentState);
         
             nextBtn.style.display = (currentState === TOTAL_STATES) ? 'none' : 'block';
+            progressBar.style.transform = `scaleX(${(currentState - 1) / (TOTAL_STATES - 1)})`;
         });
+
+        // Keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            const next = ['ArrowDown', 'PageDown', ' '].includes(e.key);
+            const prev = ['ArrowUp', 'PageUp'].includes(e.key);
+            if (!next && !prev) return;
+            e.preventDefault();
+            const currentState = Math.round(window.scrollY / STEP_HEIGHT) + 1;
+            goToState(currentState + (next ? 1 : -1));
+        });
+
+        // Tooltip: tap to toggle on touch devices
+        const tooltip = document.querySelector('.tooltip-container');
+        tooltip.addEventListener('click', (e) => {
+            e.stopPropagation();
+            tooltip.classList.toggle('open');
+        });
+        document.addEventListener('click', () => tooltip.classList.remove('open'));
         
         // Update button to use the new logic
         nextBtn.addEventListener('click', (e) => {
